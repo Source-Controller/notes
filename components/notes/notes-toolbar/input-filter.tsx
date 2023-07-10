@@ -11,16 +11,19 @@ export function InputFilter(props: any) {
 
   const [filters, setFilters] = useAtom(filtersAtom)
 
-  const [value, setValue] = useState<string>(property)
+  const [value, setValue] = useState<string>("")
 
-  // useEffect(() => {
-  //   setFilters((prevFilters) => {
-  //     const updatedFilters = {
-  //       ...prevFilters,
-  //     }
-  //     return updatedFilters
-  //   })
-  // }, [value])
+  useEffect(() => {
+    setFilters((prevFilters) => {
+      const updatedFilters = {
+        ...prevFilters,
+        [property]: value,
+      }
+      return updatedFilters
+    })
+    console.log(filters)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value])
 
   const handleChange = (e: any) => {
     setValue(e.target.value)

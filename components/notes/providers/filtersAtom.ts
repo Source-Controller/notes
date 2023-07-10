@@ -7,4 +7,4 @@ interface TagsType {
   [key: string]: string | Checked[];
 }
 
-export const filtersAtom = atom<TagsType[]>([])
+export const filtersAtom = atom<TagsType>({})
