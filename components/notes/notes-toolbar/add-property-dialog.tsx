@@ -46,14 +46,11 @@ const formSchema = z.object({
   type: z.string().min(1, { message: "Please input the type of property" }),
 })
 
-export function AddPropertyDialog(props: any) {
+export function AddPropertyDialog({ setClose }: { setClose: () => void }) {
   const [, setTypeOfTags] = useAtom(typeOfTagsAtom)
   const [, setTags] = useAtom(tagsAtom)
   const [, setProperties] = useAtom(propertiesOfTagsAtom)
   const [, setNotes] = useAtom(notesAtom)
-
-  // close dialog
-  const { setClose } = props
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({

@@ -3,11 +3,14 @@ import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu"
 import { useAtom, useAtomValue } from "jotai"
 import { ChevronDown } from "lucide-react"
 
+import { Dialog, DialogTrigger } from "@/components/ui/dialog"
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
@@ -17,6 +20,7 @@ import {
   propertiesOfTagsAtom,
   tagsAtom,
 } from "../providers"
+import { AddOption } from "./add-option"
 
 type Checked = DropdownMenuCheckboxItemProps["checked"]
 
@@ -36,6 +40,8 @@ export function CustomSelect(props: any) {
 
   const [select, setSelect] = useState(notes[noteId || 0].tags[property])
 
+  const [dialog, setDialog] = useState(false)
+
   useEffect(() => {
     setNotes((prevNotes) => {
       const updatedNotes = [...prevNotes]
@@ -53,30 +59,37 @@ export function CustomSelect(props: any) {
 
   return (
     <div className="mb-[3px] flex h-8 items-center">
-      <DropdownMenu>
-        <div className="mr-2.5 w-20 text-base lg:w-36">{tag}</div>
-        <DropdownMenuTrigger asChild>
-          <div className="relative flex h-8 flex-1 cursor-pointer items-center border border-dashed px-3 py-1 text-sm data-[state=open]:border data-[state=open]:border-blue-300">
-            {select}
-            <ChevronDown className="absolute bottom-1.5 right-2 h-4 w-4 text-slate-400" />
-          </div>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-full">
-          <DropdownMenuRadioGroup value={select} onValueChange={setSelect}>
-            {Array.isArray(properties[property]) ? (
-              (properties[property] as string[]).map((p: string) => {
-                return (
-                  <DropdownMenuRadioItem key={p} value={p}>
-                    {p}
-                  </DropdownMenuRadioItem>
-                )
-              })
-            ) : (
-              <></> // or any other fallback UI if needed
-            )}
-          </DropdownMenuRadioGroup>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <Dialog open={dialog} onOpenChange={setDialog}>
+        <DropdownMenu>
+          <div className="mr-2.5 w-20 text-base lg:w-36">{tag}</div>
+          <DropdownMenuTrigger asChild>
+            <div className="relative flex h-8 flex-1 cursor-pointer items-center border border-dashed px-3 py-1 text-sm data-[state=open]:border data-[state=open]:border-blue-300">
+              {select}
+              <ChevronDown className="absolute bottom-1.5 right-2 h-4 w-4 text-slate-400" />
+            </div>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-full">
+            <DropdownMenuRadioGroup value={select} onValueChange={setSelect}>
+              {Array.isArray(properties[property]) ? (
+                (properties[property] as string[]).map((p: string) => {
+                  return (
+                    <DropdownMenuRadioItem key={p} value={p}>
+                      {p}
+                    </DropdownMenuRadioItem>
+                  )
+                })
+              ) : (
+                <></> // or any other fallback UI if needed
+              )}
+            </DropdownMenuRadioGroup>
+            <DropdownMenuSeparator />
+            <DialogTrigger>
+              <DropdownMenuItem>Add option</DropdownMenuItem>
+            </DialogTrigger>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <AddOption property={property} setClose={() => setDialog(false)} />
+      </Dialog>
     </div>
   )
 }

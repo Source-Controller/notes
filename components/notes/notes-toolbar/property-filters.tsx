@@ -7,7 +7,7 @@ import { SelectFilter } from "./select-filter"
 export function PropertyFilters() {
   const properties = useAtomValue(propertiesOfTagsAtom)
   return (
-    <div className="mr-auto flex gap-2">
+    <div className="flex gap-2">
       {Object.keys(properties).map((property, index) => {
         if (typeof properties[property] === "string") {
           return (
