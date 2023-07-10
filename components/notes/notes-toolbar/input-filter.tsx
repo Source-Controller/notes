@@ -9,7 +9,7 @@ export function InputFilter(props: any) {
   const { property, index } = props
   const [tags] = useAtom(tagsAtom)
 
-  const [filters, setFilters] = useAtom(filtersAtom)
+  const [, setFilters] = useAtom(filtersAtom)
 
   const [value, setValue] = useState<string>("")
 
@@ -21,7 +21,6 @@ export function InputFilter(props: any) {
       }
       return updatedFilters
     })
-    console.log(filters)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value])
 

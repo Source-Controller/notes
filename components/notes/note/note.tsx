@@ -1,12 +1,24 @@
 import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
+import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu"
 import { Trash } from "lucide-react"
 
 import { NoteTags } from "./note-tags"
 
-export function Note(props: any) {
-  const { note } = props
+type Checked = DropdownMenuCheckboxItemProps["checked"]
 
+interface TagsType {
+  [key: string]: any | Checked[]
+}
+
+interface NoteType {
+  id: number
+  title: string
+  tags: TagsType
+  view: string
+}
+
+export function Note({ note }: { note: NoteType }) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: note.id })
 

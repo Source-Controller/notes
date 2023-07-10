@@ -16,22 +16,38 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable"
-import { useAtom, useSetAtom } from "jotai"
+import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu"
+import { useAtom, useAtomValue, useSetAtom } from "jotai"
 
 import { Dialog, DialogContent } from "@/components/ui/dialog"
 
 import { Note } from "./note"
 import { NoteDialog } from "./note-editor-dialog"
-import { noteIdAtom, notesAtom } from "./providers"
+import { filtersAtom, noteIdAtom, notesAtom } from "./providers"
 
-export function NotesBody(props: any) {
-  const { filterValue } = props
+type Checked = DropdownMenuCheckboxItemProps["checked"]
+
+interface TagsType {
+  [key: string]: any | Checked[]
+}
+
+interface NoteType {
+  id: number
+  title: string
+  tags: TagsType
+  view: string
+}
+
+export function NotesBody({ filterValue }: { filterValue: string }) {
   const [notes, setNotes] = useAtom(notesAtom)
 
   // Note Dialog
   const [isOpen, changeOpen] = useState(false)
 
   const setNoteId = useSetAtom(noteIdAtom)
+
+  // Filters
+  const filters = useAtomValue(filtersAtom)
 
   // Drag & Drop
   function handleDragEnd(event: DragEndEvent) {
@@ -60,9 +76,30 @@ export function NotesBody(props: any) {
   )
 
   // Title Filter
-  const filteredNotes = notes.filter((note) =>
+  const titleFilteredNotes = notes.filter((note) =>
     note.title.toLowerCase().includes(filterValue.toLowerCase())
   )
+
+  const isFiltered = (note: NoteType) => {
+    let res: boolean = true
+    Object.keys(filters).map((key, index) => {
+      let flag: boolean = false
+      const value = filters[key]
+      if (typeof value === "string") {
+        flag = note.tags[key].toLowerCase().includes(value) || value === ""
+      } else if (Array.isArray(value)) {
+        for (let i = 0; i < value.length; i++) {
+          if (note.tags[key][i] === value[i] && value[i] === true) {
+            flag = true
+          }
+        }
+      }
+      res = res && flag
+    })
+    return res
+  }
+
+  const filteredNotes = titleFilteredNotes.filter(isFiltered)
 
   return (
     <Dialog open={isOpen} onOpenChange={changeOpen}>

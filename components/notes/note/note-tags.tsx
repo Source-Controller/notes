@@ -1,10 +1,22 @@
+import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu"
 import { useAtomValue } from "jotai"
 
 import { propertiesOfTagsAtom, tagsAtom, typeOfTagsAtom } from "../providers"
 
-export function NoteTags(props: any) {
-  const { note } = props
+type Checked = DropdownMenuCheckboxItemProps["checked"]
 
+interface TagsType {
+  [key: string]: any | Checked[]
+}
+
+interface NoteType {
+  id: number
+  title: string
+  tags: TagsType
+  view: string
+}
+
+export function NoteTags({ note }: { note: NoteType }) {
   // types of Properties(like string, select or multiselect)
   const types = useAtomValue(typeOfTagsAtom)
   const propertiesOfTags = useAtomValue(propertiesOfTagsAtom)
