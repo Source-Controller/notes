@@ -12,6 +12,7 @@ interface NoteType {
   title: string;
   tags: TagsType;
   view: string;
+  dateCreatedAt: string;
 }
 
 const notesAtom = atom<NoteType[]>([
@@ -25,6 +26,7 @@ const notesAtom = atom<NoteType[]>([
       level: "Easy", 
     },
     view: "", 
+    dateCreatedAt: '', 
   }, 
   {
     id: 2,
@@ -36,6 +38,7 @@ const notesAtom = atom<NoteType[]>([
       level: "Medium", 
     },
     view: "", 
+    dateCreatedAt: '', 
   }, 
   {
     id: 3,
@@ -47,6 +50,7 @@ const notesAtom = atom<NoteType[]>([
       level: "Hard", 
     },
     view: "", 
+    dateCreatedAt: '', 
   }, 
   {
     id: 4,
@@ -58,6 +62,7 @@ const notesAtom = atom<NoteType[]>([
       level: "Medium", 
     },
     view: "", 
+    dateCreatedAt: '', 
   }, 
 ])
 
