@@ -23,7 +23,12 @@ import { Dialog, DialogContent } from "@/components/ui/dialog"
 
 import { Note } from "./note"
 import { NoteDialog } from "./note-editor-dialog"
-import { filtersAtom, noteIdAtom, notesAtom } from "./providers"
+import {
+  filtersAtom,
+  noteIdAtom,
+  notesAtom,
+  propertiesOfTagsAtom,
+} from "./providers"
 
 type Checked = DropdownMenuCheckboxItemProps["checked"]
 
@@ -48,6 +53,8 @@ export function NotesBody({ filterValue }: { filterValue: string }) {
 
   // Filters
   const filters = useAtomValue(filtersAtom)
+
+  const properties = useAtomValue(propertiesOfTagsAtom)
 
   // Drag & Drop
   function handleDragEnd(event: DragEndEvent) {
@@ -87,9 +94,15 @@ export function NotesBody({ filterValue }: { filterValue: string }) {
       const value = filters[key]
       if (typeof value === "string") {
         flag = note.tags[key].toLowerCase().includes(value) || value === ""
-      } else if (Array.isArray(value)) {
+      } else if (Array.isArray(value) && Array.isArray(note.tags[key])) {
         for (let i = 0; i < value.length; i++) {
           if (note.tags[key][i] === value[i] && value[i] === true) {
+            flag = true
+          }
+        }
+      } else if (Array.isArray(value) && typeof note.tags[key] === "string") {
+        for (let i = 0; i < value.length; i++) {
+          if (value[i] === true && properties[key][i] === note.tags[key]) {
             flag = true
           }
         }

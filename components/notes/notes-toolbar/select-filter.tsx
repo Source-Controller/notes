@@ -1,5 +1,7 @@
 import * as React from "react"
+import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu"
 import { CheckIcon, PlusCircledIcon } from "@radix-ui/react-icons"
+import { useAtom } from "jotai"
 
 import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
@@ -20,40 +22,82 @@ import {
 } from "@/components/ui/popover"
 import { Separator } from "@/components/ui/separator"
 
-export function PropertyFilter() {
+import { filtersAtom, tagsAtom } from "../providers"
+
+type Checked = DropdownMenuCheckboxItemProps["checked"]
+
+export function SelectFilter({
+  property,
+  index,
+  propertyValue,
+}: {
+  property: string
+  index: number
+  propertyValue: string[] | string
+}) {
+  const [tags] = useAtom(tagsAtom)
+
+  const [, setFilters] = useAtom(filtersAtom)
+  const [selectedValues, setSelectedValues] = React.useState<string[]>([])
+
+  const options = propertyValue as string[]
+
+  const [value, setValue] = React.useState<Checked[]>([])
+
+  React.useEffect(() => {
+    setFilters((prevFilters) => {
+      const updatedFilters = {
+        ...prevFilters,
+        [property]: value,
+      }
+      return updatedFilters
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value])
+
+  React.useEffect(() => {
+    const updatedValue = options.map((option) =>
+      selectedValues.includes(option)
+    )
+    const allFalse = updatedValue.every((value) => value === false)
+    setValue(allFalse ? updatedValue.map(() => true) : updatedValue)
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedValues])
+
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button variant="outline" size="sm" className="h-8 border-dashed">
           <PlusCircledIcon className="mr-2 h-4 w-4" />
-          {title}
-          {selectedValues?.size > 0 && (
+          {tags.names[index]}
+          {selectedValues.length > 0 && (
             <>
               <Separator orientation="vertical" className="mx-2 h-4" />
               <Badge
                 variant="secondary"
                 className="rounded-sm px-1 font-normal lg:hidden"
               >
-                {selectedValues.size}
+                {selectedValues.length}
               </Badge>
               <div className="hidden space-x-1 lg:flex">
-                {selectedValues.size > 2 ? (
+                {selectedValues.length > 2 ? (
                   <Badge
                     variant="secondary"
                     className="rounded-sm px-1 font-normal"
                   >
-                    {selectedValues.size} selected
+                    {selectedValues.length} selected
                   </Badge>
                 ) : (
                   options
-                    .filter((option) => selectedValues.has(option.value))
+                    .filter((option) => selectedValues.includes(option))
                     .map((option) => (
                       <Badge
                         variant="secondary"
-                        key={option.value}
+                        key={option}
                         className="rounded-sm px-1 font-normal"
                       >
-                        {option.label}
+                        {option}
                       </Badge>
                     ))
                 )}
@@ -64,25 +108,26 @@ export function PropertyFilter() {
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0" align="start">
         <Command>
-          <CommandInput placeholder={title} />
+          <CommandInput placeholder={tags.names[index]} />
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup>
               {options.map((option) => {
-                const isSelected = selectedValues.has(option.value)
+                const isSelected = selectedValues.includes(option)
                 return (
                   <CommandItem
-                    key={option.value}
+                    key={option}
                     onSelect={() => {
                       if (isSelected) {
-                        selectedValues.delete(option.value)
+                        setSelectedValues((prevValues) =>
+                          prevValues.filter((v) => v !== option)
+                        )
                       } else {
-                        selectedValues.add(option.value)
+                        setSelectedValues((prevValues) => [
+                          ...prevValues,
+                          option,
+                        ])
                       }
-                      const filterValues = Array.from(selectedValues)
-                      column?.setFilterValue(
-                        filterValues.length ? filterValues : undefined
-                      )
                     }}
                   >
                     <div
@@ -95,25 +140,19 @@ export function PropertyFilter() {
                     >
                       <CheckIcon className={cn("h-4 w-4")} />
                     </div>
-                    {option.icon && (
-                      <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-                    )}
-                    <span>{option.label}</span>
-                    {facets?.get(option.value) && (
-                      <span className="ml-auto flex h-4 w-4 items-center justify-center font-mono text-xs">
-                        {facets.get(option.value)}
-                      </span>
-                    )}
+                    <span>{option}</span>
                   </CommandItem>
                 )
               })}
             </CommandGroup>
-            {selectedValues.size > 0 && (
+            {selectedValues.length > 0 && (
               <>
                 <CommandSeparator />
                 <CommandGroup>
                   <CommandItem
-                    onSelect={() => column?.setFilterValue(undefined)}
+                    onSelect={() => {
+                      setSelectedValues([])
+                    }}
                     className="justify-center text-center"
                   >
                     Clear filters

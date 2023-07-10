@@ -18,7 +18,7 @@ export function NotesToolBar(props: any) {
       <div className="relative flex select-none flex-wrap items-center gap-4 break-all py-2">
         <Input
           placeholder="Filter Titles..."
-          className="mr-auto max-w-sm border-gray-300"
+          className="max-w-sm border-gray-300"
           value={filterValue}
           onChange={(event) => setFilterValue(event.target.value)}
         />

@@ -5,8 +5,13 @@ import { Input } from "@/components/ui/input"
 
 import { filtersAtom, tagsAtom } from "../providers"
 
-export function InputFilter(props: any) {
-  const { property, index } = props
+export function InputFilter({
+  property,
+  index,
+}: {
+  property: string
+  index: number
+}) {
   const [tags] = useAtom(tagsAtom)
 
   const [, setFilters] = useAtom(filtersAtom)
