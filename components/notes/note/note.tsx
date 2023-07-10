@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu"
@@ -25,6 +26,7 @@ interface NoteType {
 
 export function Note({ note }: { note: NoteType }) {
   const [notes, setNotes] = useAtom(notesAtom)
+  const [dateCreatedAt, setDateCreatedAt] = useState<string>(note.dateCreatedAt)
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: note.id })
 
@@ -53,6 +55,8 @@ export function Note({ note }: { note: NoteType }) {
       updatedNotes[index].dateCreatedAt = e.target.value
       return updatedNotes
     })
+
+    setDateCreatedAt(e.target.value)
   }
 
   return (
@@ -63,7 +67,7 @@ export function Note({ note }: { note: NoteType }) {
         <NoteTags note={note} />
 
         <div className="px-5 text-sm">
-          <Input type="date" value={note.dateCreatedAt} onChange={dateChange} />
+          <Input type="date" value={dateCreatedAt} onChange={dateChange} />
         </div>
         <Trash
           className="absolute right-2 top-[20px] h-4 w-4 cursor-pointer select-none"
