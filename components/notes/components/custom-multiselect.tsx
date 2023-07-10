@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu"
-import { useAtom, useAtomValue, useSetAtom } from "jotai"
-import { ChevronDown, X } from "lucide-react"
+import { useAtom, useAtomValue } from "jotai"
+import { ChevronDown, Trash, X } from "lucide-react"
 
 import { Dialog, DialogTrigger } from "@/components/ui/dialog"
 import {
@@ -9,13 +9,12 @@ import {
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
 import {
+  filtersAtom,
   noteIdAtom,
   notesAtom,
   propertiesOfTagsAtom,
@@ -33,11 +32,9 @@ export function CustomMultiSelect(props: any) {
 
   // Note Id
   const noteId = useAtomValue(noteIdAtom)
-
-  // Notes
   const [notes, setNotes] = useAtom(notesAtom)
-
-  const properties = useAtomValue(propertiesOfTagsAtom)
+  const [properties, setProperties] = useAtom(propertiesOfTagsAtom)
+  const [, setFilters] = useAtom(filtersAtom)
 
   const [selectCheck, setSelectCheck] = useState<Checked[]>(
     notes[noteId || 0].tags[property]
@@ -66,6 +63,28 @@ export function CustomMultiSelect(props: any) {
       return updatedSelectCheck
     })
   }
+
+  const onDelete = (e: any, index: number) => {
+    e.stopPropagation()
+    setNotes((prevNotes) => {
+      const updatedNotes = [...prevNotes]
+      for (let i = 0; i < updatedNotes.length; i++) {
+        updatedNotes[i].tags[property].splice(index, 1)
+      }
+      return updatedNotes
+    })
+    setProperties((prevProperties) => {
+      const updatedProperties = prevProperties
+      ;(updatedProperties[property] as string[]).splice(index, 1)
+      return updatedProperties
+    })
+    setFilters((prevFilters) => {
+      const updatedFilters = prevFilters
+      ;(updatedFilters[property] as Checked[]).splice(index, 1)
+      return updatedFilters
+    })
+  }
+
   return (
     <div className="mb-[3px] flex items-center">
       <Dialog open={dialog} onOpenChange={setDialog}>
@@ -110,8 +129,14 @@ export function CustomMultiSelect(props: any) {
                       key={p}
                       checked={selectCheck[index]}
                       onCheckedChange={() => handleSelectCheck(index)}
+                      className="flex-column flex items-center justify-between gap-8"
                     >
                       {p}
+
+                      <Trash
+                        onClick={(e) => onDelete(e, index)}
+                        className="h-4 w-4 text-[#0f172A]"
+                      />
                     </DropdownMenuCheckboxItem>
                   )
                 }

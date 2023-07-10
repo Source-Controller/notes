@@ -75,7 +75,7 @@ export function NotesBody({ filterValue }: { filterValue: string }) {
       })
     } else if (active.rect) {
       // Note Dialog Open
-      // handleOpen(true)
+      handleOpen(true)
       const oldIndex = notes.findIndex((note) => note.id === active.id)
       setNoteId(oldIndex)
     }
