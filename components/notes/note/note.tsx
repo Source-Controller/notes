@@ -28,7 +28,6 @@ export function Note({ note }: { note: NoteType }) {
   }
 
   const onDelete = (event: any) => {
-    alert("delete")
     event.stopPropagation()
     // invoke onDelete func
   }

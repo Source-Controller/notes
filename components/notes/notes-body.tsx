@@ -18,10 +18,12 @@ import {
 } from "@dnd-kit/sortable"
 import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu"
 import { useAtom, useAtomValue, useSetAtom } from "jotai"
+import { boolean } from "zod"
 
 import { Dialog, DialogContent } from "@/components/ui/dialog"
 
 import { Note } from "./note"
+import { NoteCreateNew } from "./note-create-new"
 import { NoteDialog } from "./note-editor-dialog"
 import {
   filtersAtom,
@@ -56,6 +58,10 @@ export function NotesBody({ filterValue }: { filterValue: string }) {
 
   const properties = useAtomValue(propertiesOfTagsAtom)
 
+  const handleOpen = (val: boolean) => {
+    changeOpen(val)
+  }
+
   // Drag & Drop
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event
@@ -69,7 +75,7 @@ export function NotesBody({ filterValue }: { filterValue: string }) {
       })
     } else if (active.rect) {
       // Note Dialog Open
-      changeOpen(true)
+      handleOpen(true)
       const oldIndex = notes.findIndex((note) => note.id === active.id)
       setNoteId(oldIndex)
     }
@@ -100,11 +106,17 @@ export function NotesBody({ filterValue }: { filterValue: string }) {
             flag = true
           }
         }
+        if (value.every((v) => v === false)) {
+          flag = true
+        }
       } else if (Array.isArray(value) && typeof note.tags[key] === "string") {
         for (let i = 0; i < value.length; i++) {
           if (value[i] === true && properties[key][i] === note.tags[key]) {
             flag = true
           }
+        }
+        if (value.every((v) => v === false)) {
+          flag = true
         }
       }
       res = res && flag
@@ -115,7 +127,7 @@ export function NotesBody({ filterValue }: { filterValue: string }) {
   const filteredNotes = titleFilteredNotes.filter(isFiltered)
 
   return (
-    <Dialog open={isOpen} onOpenChange={changeOpen}>
+    <Dialog open={isOpen} onOpenChange={handleOpen}>
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
@@ -127,6 +139,8 @@ export function NotesBody({ filterValue }: { filterValue: string }) {
           })}
         </SortableContext>
       </DndContext>
+
+      <NoteCreateNew changeOpen={handleOpen} />
 
       <DialogContent className="w-screen max-w-full lg:max-w-[85vw]">
         <NoteDialog />

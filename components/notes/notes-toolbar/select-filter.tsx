@@ -59,8 +59,7 @@ export function SelectFilter({
     const updatedValue = options.map((option) =>
       selectedValues.includes(option)
     )
-    const allFalse = updatedValue.every((value) => value === false)
-    setValue(allFalse ? updatedValue.map(() => true) : updatedValue)
+    setValue(updatedValue)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedValues])

@@ -120,7 +120,7 @@ export function CustomMultiSelect(props: any) {
               <></> // or any other fallback UI if needed
             )}
             <DropdownMenuSeparator />
-            <DialogTrigger>
+            <DialogTrigger asChild className="flex justify-center">
               <DropdownMenuItem>Add option</DropdownMenuItem>
             </DialogTrigger>
           </DropdownMenuContent>

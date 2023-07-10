@@ -83,7 +83,7 @@ export function CustomSelect(props: any) {
               )}
             </DropdownMenuRadioGroup>
             <DropdownMenuSeparator />
-            <DialogTrigger>
+            <DialogTrigger asChild className="flex justify-center">
               <DropdownMenuItem>Add option</DropdownMenuItem>
             </DialogTrigger>
           </DropdownMenuContent>
