@@ -41,6 +41,7 @@ export function NoteCreateNew({
           title: "New Note",
           tags: tempTag,
           view: "",
+          dateCreatedAt: "",
         },
       ]
       return updatedNotes
