@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-head-element */
 import "@/styles/globals.css"
 import { Metadata } from "next"
 
