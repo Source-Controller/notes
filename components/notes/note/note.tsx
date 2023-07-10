@@ -51,7 +51,7 @@ export function Note({ note }: { note: NoteType }) {
     }
 
     setNotes((prevNotes) => {
-      const updatedNotes = prevNotes
+      const updatedNotes = [...prevNotes]
       updatedNotes[index].dateCreatedAt = e.target.value
       return updatedNotes
     })
@@ -60,7 +60,13 @@ export function Note({ note }: { note: NoteType }) {
   }
 
   return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+      aria-describedby=""
+    >
       <div className="relative flex min-h-[39px] select-none flex-wrap items-center gap-4 break-all border-b border-gray-300 py-2 pl-4 pr-8">
         <div className="mr-auto text-sm">{note.title}</div>
 

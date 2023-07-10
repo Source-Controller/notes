@@ -57,9 +57,9 @@ export function AddOption({
       return updatedProperties
     })
 
-    if (tags[property]) {
+    if (tags[property] === "multiselect") {
       setNotes((prevNotes) => {
-        const updatedNotes = prevNotes
+        const updatedNotes = [...prevNotes]
         for (let i = 0; i < updatedNotes.length; i++) {
           updatedNotes[i].tags[property].push(false)
         }

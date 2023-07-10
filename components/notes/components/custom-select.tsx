@@ -90,12 +90,12 @@ export function CustomSelect(props: any) {
       return updatedNotes
     })
     setProperties((prevProperties) => {
-      const updatedProperties = prevProperties
+      const updatedProperties = { ...prevProperties }
       ;(updatedProperties[property] as string[]).splice(index, 1)
       return updatedProperties
     })
     setFilters((prevFilters) => {
-      const updatedFilters = prevFilters
+      const updatedFilters = { ...prevFilters }
       ;(updatedFilters[property] as Checked[]).splice(index, 1)
       return updatedFilters
     })
