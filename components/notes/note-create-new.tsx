@@ -3,7 +3,12 @@ import { useAtom } from "jotai"
 
 import { Button } from "@/components/ui/button"
 
-import { noteIdAtom, notesAtom, propertiesOfTagsAtom } from "./providers"
+import {
+  noteIdAtom,
+  notesAtom,
+  propertiesOfTagsAtom,
+  typeOfTagsAtom,
+} from "./providers"
 
 type Checked = DropdownMenuCheckboxItemProps["checked"]
 
@@ -15,15 +20,16 @@ export function NoteCreateNew({
   const [notes, setNotes] = useAtom(notesAtom)
   const [properties] = useAtom(propertiesOfTagsAtom)
   const [, setNoteId] = useAtom(noteIdAtom)
+  const [types] = useAtom(typeOfTagsAtom)
 
   const addNew = () => {
     setNotes((prevNotes) => {
       let tempTag = {}
       Object.keys(properties).map((key) => {
         const value = properties[key]
-        if (typeof value === "string") {
+        if (types[key] === "text" || types[key] === "select") {
           tempTag = { ...tempTag, [key]: "" }
-        } else if (Array.isArray(value)) {
+        } else if (types[key] === "multiselect") {
           const arr: Checked[] = Array(value.length).fill(false)
           tempTag = { ...tempTag, [key]: arr }
         }

@@ -48,7 +48,7 @@ export function CustomInput(props: any) {
   return (
     <div className="mb-[3px] flex items-center">
       <div className="mr-2.5 w-20 text-base lg:w-36">{tag}</div>
-      <Input className="h-8 flex-1" value={text} onChange={handleChange} />
+      <Input className="h-8" value={text} onChange={handleChange} />
     </div>
   )
 }

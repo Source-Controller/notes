@@ -29,17 +29,12 @@ export function Note({ note }: { note: NoteType }) {
 
   const onDelete = (event: any) => {
     event.stopPropagation()
+    alert("del")
     // invoke onDelete func
   }
 
   return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      {...attributes}
-      {...listeners}
-      aria-describedby=""
-    >
+    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
       <div className="relative flex min-h-[39px] select-none flex-wrap items-center gap-4 break-all border-b border-gray-300 py-2 pl-4 pr-8">
         <div className="mr-auto text-sm">{note.title}</div>
 

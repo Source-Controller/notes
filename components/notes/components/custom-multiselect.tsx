@@ -72,7 +72,7 @@ export function CustomMultiSelect(props: any) {
         <DropdownMenu>
           <div className="mr-2.5 w-20 text-base lg:w-36">{tag}</div>
           <DropdownMenuTrigger asChild>
-            <div className="relative flex min-h-[32px] flex-1 border border-dashed px-2 py-1 data-[state=open]:border data-[state=open]:border-blue-300">
+            <div className="relative flex min-h-[32px] w-full border border-dashed px-2 py-1 data-[state=open]:border data-[state=open]:border-blue-300">
               {Array.isArray(properties[property]) ? (
                 (properties[property] as string[]).map(
                   (p: string, index: number) => {
