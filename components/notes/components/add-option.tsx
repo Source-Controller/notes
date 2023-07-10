@@ -20,12 +20,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 
-import {
-  notesAtom,
-  propertiesOfTagsAtom,
-  tagsAtom,
-  typeOfTagsAtom,
-} from "../providers"
+import { notesAtom, propertiesOfTagsAtom, typeOfTagsAtom } from "../providers"
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Please input the name of property" }),
@@ -39,6 +34,8 @@ export function AddOption({
   setClose: () => void
 }) {
   const [, setProperties] = useAtom(propertiesOfTagsAtom)
+  const [notes, setNotes] = useAtom(notesAtom)
+  const [tags] = useAtom(typeOfTagsAtom)
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -59,6 +56,16 @@ export function AddOption({
 
       return updatedProperties
     })
+
+    if (tags[property]) {
+      setNotes((prevNotes) => {
+        const updatedNotes = prevNotes
+        for (let i = 0; i < updatedNotes.length; i++) {
+          updatedNotes[i].tags[property].push(false)
+        }
+        return updatedNotes
+      })
+    }
 
     form.setValue("name", "")
     setClose()
