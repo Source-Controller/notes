@@ -1,7 +1,7 @@
 "use client"
 
-import { useState } from "react"
-import { useSetAtom } from "jotai"
+import { useEffect, useState } from "react"
+import { useAtom } from "jotai"
 
 import { NotesBody } from "./notes-body"
 import { NotesHeader } from "./notes-header"
@@ -15,24 +15,36 @@ import { TagsProps, tagsAtom } from "./providers/tagsAtom"
 import { TagsTypeProps, typeOfTagsAtom } from "./providers/typeOfTagsAtom"
 
 interface NotesProps {
-  data?: NoteType[]
+  notes?: NoteType[]
   properties?: propertiesOfTagsType
   tags?: TagsProps
   tagsType?: TagsTypeProps
+  onChange?: (
+    notes: NoteType[],
+    properties: propertiesOfTagsType,
+    tags: TagsProps,
+    tagsType: propertiesOfTagsType
+  ) => void
 }
 
-export function Notes({ data, properties, tags, tagsType }: NotesProps) {
+export function Notes({
+  notes,
+  properties,
+  tags,
+  tagsType,
+  onChange,
+}: NotesProps) {
   const [filterValue, setFilterValue] = useState<string>("")
   const handleFilterValue = (val: string) => {
     setFilterValue(val)
   }
 
-  const setNotes = useSetAtom(notesAtom)
-  const setProperties = useSetAtom(propertiesOfTagsAtom)
-  const setTags = useSetAtom(tagsAtom)
-  const setTagsType = useSetAtom(typeOfTagsAtom)
-  if (data) {
-    setNotes(data)
+  const [_notes, setNotes] = useAtom(notesAtom)
+  const [_properties, setProperties] = useAtom(propertiesOfTagsAtom)
+  const [_tags, setTags] = useAtom(tagsAtom)
+  const [_tagsType, setTagsType] = useAtom(typeOfTagsAtom)
+  if (notes) {
+    setNotes(notes)
   }
   if (properties) {
     setProperties(properties)
@@ -43,6 +55,13 @@ export function Notes({ data, properties, tags, tagsType }: NotesProps) {
   if (tagsType) {
     setTagsType(tagsType)
   }
+
+  useEffect(() => {
+    if (onChange) {
+      onChange(_notes, _properties, _tags, _tagsType)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [_notes, _properties, _tags, _tagsType])
 
   return (
     <>
