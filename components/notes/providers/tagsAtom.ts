@@ -3,12 +3,12 @@ import { atom } from "jotai";
 
 type Checked = DropdownMenuCheckboxItemProps["checked"]
 
-interface tagsType {
+interface TagsProps {
   names: string[];
   check: Checked[];
 }
 
-export const tagsAtom = atom<tagsType>({
+export const tagsAtom = atom<TagsProps>({
   names: [
     'Algorithms', 
     'Level', 
@@ -18,3 +18,5 @@ export const tagsAtom = atom<tagsType>({
     true, 
   ]
 });
+
+export type { TagsProps }

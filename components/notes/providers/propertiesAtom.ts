@@ -18,3 +18,5 @@ export const propertiesOfTagsAtom = atom<propertiesOfTagsType>({
     "Hard", 
   ],
 })
+
+export type { propertiesOfTagsType }

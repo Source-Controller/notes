@@ -1,10 +1,12 @@
 import { atom } from "jotai";
 
-interface TagsType {
+interface TagsTypeProps {
   [key: string]: 'text' | 'select' | 'multiselect';
 }
 
-export const typeOfTagsAtom = atom<TagsType>({
+export const typeOfTagsAtom = atom<TagsTypeProps>({
   algorithms: 'multiselect', 
   level: 'select', 
 })
+
+export type { TagsTypeProps }
