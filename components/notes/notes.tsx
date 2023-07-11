@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { useAtom } from "jotai"
 
+import { Editor } from "./note-editor-dialog/editor"
 import { NotesBody } from "./notes-body"
 import { NotesHeader } from "./notes-header"
 import { NotesToolBar } from "./notes-toolbar"
@@ -71,6 +72,7 @@ export function Notes({
       />
       <NotesHeader />
       <NotesBody filterValue={filterValue} />
+      <Editor />
     </>
   )
 }
