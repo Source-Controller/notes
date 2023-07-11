@@ -25,6 +25,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog"
 import { Note } from "./note"
 import { NoteCreateNew } from "./note-create-new"
 import { NoteDialog } from "./note-editor-dialog"
+import { NoteEmpty } from "./note-empty"
 import {
   filtersAtom,
   noteIdAtom,
@@ -153,6 +154,8 @@ export function NotesBody({ filterValue }: { filterValue: string }) {
           })}
         </SortableContext>
       </DndContext>
+
+      {!filteredNotes.length && <NoteEmpty />}
 
       <NoteCreateNew changeOpen={handleOpen} />
 
