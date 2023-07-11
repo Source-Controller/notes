@@ -3,8 +3,8 @@ import { atom } from "jotai";
 
 type Checked = DropdownMenuCheckboxItemProps["checked"]
 
-interface TagsType {
+interface FilterType {
   [key: string]: string | Checked[];
 }
 
-export const filtersAtom = atom<TagsType>({})
+export const filtersAtom = atom<FilterType>({})

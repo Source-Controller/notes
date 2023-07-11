@@ -56,7 +56,7 @@ export function Editor() {
         debouncedUpdates(e)
       }
     },
-    autofocus: "end",
+    autofocus: "start",
   })
 
   const { complete, completion, isLoading, stop } = useCompletion({

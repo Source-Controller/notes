@@ -4,28 +4,18 @@ import DEFAULT_EDITOR_CONTENT from "../note-editor-dialog/editor/default-content
 
 type Checked = DropdownMenuCheckboxItemProps["checked"]
 
-
-interface AttrsProps {
-  [key: string]: number | string | boolean
-}
-
 interface NovelProps {
-  // type?: string
-  // attrs?: AttrsProps
-  // text?: string
-  // content?: NovelProps[]
-  // marks?: NovelProps[]
   [key: string]: any
 }
 
-interface TagsType {
+interface NoteTagsProps {
   [key: string]: any | Checked[];
 }
 
 interface NoteProps {
   id: number | string;
   title: string;
-  tags: TagsType;
+  tags: NoteTagsProps;
   view: any;
   dateCreatedAt: string;
 }

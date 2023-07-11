@@ -1,10 +1,10 @@
 import { atom } from "jotai";
 
-interface propertiesOfTagsType {
+interface propertiesOfTagsProps {
   [key: string]: string[] | string;
 }
 
-export const propertiesOfTagsAtom = atom<propertiesOfTagsType>({
+export const propertiesOfTagsAtom = atom<propertiesOfTagsProps>({
   algorithms: [
     "Dynamic Programming",
     "Depth-first Search",
@@ -19,4 +19,4 @@ export const propertiesOfTagsAtom = atom<propertiesOfTagsType>({
   ],
 })
 
-export type { propertiesOfTagsType }
+export type { propertiesOfTagsProps }

@@ -9,21 +9,21 @@ import { NotesToolBar } from "./notes-toolbar"
 import { NoteProps, notesAtom } from "./providers/notesAtom"
 import {
   propertiesOfTagsAtom,
-  propertiesOfTagsType,
+  propertiesOfTagsProps,
 } from "./providers/propertiesAtom"
 import { TagsProps, tagsAtom } from "./providers/tagsAtom"
 import { TagsTypeProps, typeOfTagsAtom } from "./providers/typeOfTagsAtom"
 
 interface NotesProps {
   notes?: NoteProps[]
-  properties?: propertiesOfTagsType
+  properties?: propertiesOfTagsProps
   tags?: TagsProps
   tagsType?: TagsTypeProps
   onChange?: (
     notes: NoteProps[],
-    properties: propertiesOfTagsType,
+    properties: propertiesOfTagsProps,
     tags: TagsProps,
-    tagsType: propertiesOfTagsType
+    tagsType: TagsTypeProps
   ) => void
 }
 
