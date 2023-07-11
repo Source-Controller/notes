@@ -124,7 +124,7 @@ export function CustomMultiSelect({
               <ChevronDown className="absolute bottom-1/2 right-2 h-4 w-4 translate-y-1/2 text-slate-400" />
             </div>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-full">
+          <DropdownMenuContent className="custom-width">
             {Array.isArray(properties[property]) ? (
               (properties[property] as string[]).map(
                 (p: string, index: number) => {

@@ -119,7 +119,7 @@ export function CustomSelect({
               <ChevronDown className="absolute bottom-1.5 right-2 h-4 w-4 text-slate-400" />
             </div>
           </DropdownMenuTrigger>
-          <DropdownMenuContent>
+          <DropdownMenuContent className="custom-width">
             <DropdownMenuRadioGroup value={select} onValueChange={setSelect}>
               {Array.isArray(properties[property]) ? (
                 (properties[property] as string[]).map(
