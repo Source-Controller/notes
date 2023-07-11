@@ -82,7 +82,8 @@ export function Editor() {
     if (editor) {
       editor.commands.setContent(content)
     }
-  }, [editor, content])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editor])
 
   // Insert chunks of the generated text
   useEffect(() => {
