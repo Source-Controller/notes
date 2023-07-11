@@ -1,21 +1,36 @@
 import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
 import { atom } from "jotai";
+import DEFAULT_EDITOR_CONTENT from "../note-editor-dialog/editor/default-content";
 
 type Checked = DropdownMenuCheckboxItemProps["checked"]
+
+
+interface AttrsProps {
+  [key: string]: number | string | boolean
+}
+
+interface NovelProps {
+  // type?: string
+  // attrs?: AttrsProps
+  // text?: string
+  // content?: NovelProps[]
+  // marks?: NovelProps[]
+  [key: string]: any
+}
 
 interface TagsType {
   [key: string]: any | Checked[];
 }
 
-interface NoteType {
+interface NoteProps {
   id: number | string;
   title: string;
   tags: TagsType;
-  view: string;
+  view: any;
   dateCreatedAt: string;
 }
 
-const notesAtom = atom<NoteType[]>([
+const notesAtom = atom<NoteProps[]>([
   {
     id: 'c6d86565-8b7f-4aac-b9f4-845bde4fb7d4', 
     title: "Two Sum",
@@ -25,7 +40,7 @@ const notesAtom = atom<NoteType[]>([
       ], 
       level: "Easy", 
     },
-    view: "", 
+    view: DEFAULT_EDITOR_CONTENT, 
     dateCreatedAt: '', 
   }, 
   {
@@ -37,7 +52,7 @@ const notesAtom = atom<NoteType[]>([
       ], 
       level: "Medium", 
     },
-    view: "", 
+    view: DEFAULT_EDITOR_CONTENT, 
     dateCreatedAt: '', 
   }, 
   {
@@ -49,7 +64,7 @@ const notesAtom = atom<NoteType[]>([
       ], 
       level: "Hard", 
     },
-    view: "", 
+    view: DEFAULT_EDITOR_CONTENT, 
     dateCreatedAt: '', 
   }, 
   {
@@ -61,10 +76,10 @@ const notesAtom = atom<NoteType[]>([
       ], 
       level: "Medium", 
     },
-    view: "", 
+    view: DEFAULT_EDITOR_CONTENT, 
     dateCreatedAt: '', 
   }, 
 ])
 
 export { notesAtom };
-export type { NoteType };
+export type { NoteProps, NovelProps };

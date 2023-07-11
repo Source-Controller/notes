@@ -1,4 +1,6 @@
-const DEFAULT_EDITOR_CONTENT = {
+import { NovelProps } from "../../providers/notesAtom"
+
+const DEFAULT_EDITOR_CONTENT: NovelProps = {
   type: "doc",
   content: [
     {
@@ -198,6 +200,6 @@ const DEFAULT_EDITOR_CONTENT = {
       ],
     },
   ],
-};
+}
 
-export default DEFAULT_EDITOR_CONTENT;
+export default DEFAULT_EDITOR_CONTENT

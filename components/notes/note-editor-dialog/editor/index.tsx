@@ -4,24 +4,22 @@ import { useEffect, useRef, useState } from "react"
 import { EditorContent, useEditor } from "@tiptap/react"
 import va from "@vercel/analytics"
 import { useCompletion } from "ai/react"
+import { useAtom, useAtomValue } from "jotai"
 import { toast } from "sonner"
 import { useDebouncedCallback } from "use-debounce"
 
+import { noteIdAtom } from "../../providers"
+import { NovelProps, notesAtom } from "../../providers/notesAtom"
 import { EditorBubbleMenu } from "./components"
-import DEFAULT_EDITOR_CONTENT from "./default-content"
 import { TiptapExtensions } from "./extensions"
 import { getPrevText } from "./lib/editor"
-import useLocalStorage from "./lib/hooks/use-local-storage"
 import { TiptapEditorProps } from "./props"
 
 export function Editor() {
-  const [content, setContent] = useLocalStorage(
-    "content",
-    DEFAULT_EDITOR_CONTENT
-  )
+  const noteId = useAtomValue(noteIdAtom)
+  const [notes, setNotes] = useAtom(notesAtom)
+  const [content, setContent] = useState<NovelProps>(notes[noteId || 0].view)
   const [saveStatus, setSaveStatus] = useState("Saved")
-
-  const [hydrated, setHydrated] = useState(false)
 
   const debouncedUpdates = useDebouncedCallback(async ({ editor }) => {
     const json = editor.getJSON()
@@ -80,12 +78,30 @@ export function Editor() {
 
   const prev = useRef("")
 
+  useEffect(() => {
+    if (editor) {
+      editor.commands.setContent(content)
+    }
+  }, [editor, content])
+
   // Insert chunks of the generated text
   useEffect(() => {
     const diff = completion.slice(prev.current.length)
     prev.current = completion
     editor?.commands.insertContent(diff)
   }, [isLoading, editor, completion])
+
+  useEffect(() => {
+    setNotes((prevNotes) => {
+      const updatedNotes = [...prevNotes]
+      updatedNotes[noteId || 0] = {
+        ...updatedNotes[noteId || 0],
+        view: content,
+      }
+      return updatedNotes
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [content])
 
   useEffect(() => {
     // if user presses escape or cmd + z and it's loading,
@@ -123,20 +139,12 @@ export function Editor() {
     }
   }, [stop, isLoading, editor, complete, completion.length])
 
-  // Hydrate the editor with the content from localStorage.
-  useEffect(() => {
-    if (editor && content && !hydrated) {
-      editor.commands.setContent(content)
-      setHydrated(true)
-    }
-  }, [editor, content, hydrated])
-
   return (
     <div
       onClick={() => {
         editor?.chain().focus().run()
       }}
-      className="relative min-h-[500px] w-full max-w-screen-lg border-stone-200 bg-white p-12 px-8 sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:px-12 sm:shadow-lg"
+      className="relative max-h-[500px] w-full overflow-y-auto border-stone-200 bg-white p-12 px-8 sm:rounded-lg sm:border sm:px-12 sm:shadow-lg"
     >
       <div className="absolute right-5 top-5 mb-5 rounded-lg bg-stone-100 px-2 py-1 text-sm text-stone-400">
         {saveStatus}

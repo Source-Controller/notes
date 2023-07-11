@@ -37,7 +37,7 @@ interface TagsType {
   [key: string]: any | Checked[]
 }
 
-interface NoteType {
+interface NoteProps {
   id: number | string
   title: string
   tags: TagsType
@@ -92,7 +92,7 @@ export function NotesBody({ filterValue }: { filterValue: string }) {
     note.title.toLowerCase().includes(filterValue.toLowerCase())
   )
 
-  const isFiltered = (note: NoteType) => {
+  const isFiltered = (note: NoteProps) => {
     let res: boolean = true
     Object.keys(filters).map((key, index) => {
       let flag: boolean = false

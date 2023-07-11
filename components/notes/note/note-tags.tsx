@@ -9,14 +9,14 @@ interface TagsType {
   [key: string]: any | Checked[]
 }
 
-interface NoteType {
+interface NoteProps {
   id: number | string
   title: string
   tags: TagsType
   view: string
 }
 
-export function NoteTags({ note }: { note: NoteType }) {
+export function NoteTags({ note }: { note: NoteProps }) {
   // types of Properties(like string, select or multiselect)
   const types = useAtomValue(typeOfTagsAtom)
   const propertiesOfTags = useAtomValue(propertiesOfTagsAtom)

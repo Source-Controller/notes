@@ -3,11 +3,10 @@
 import { useEffect, useState } from "react"
 import { useAtom } from "jotai"
 
-import { Editor } from "./note-editor-dialog/editor"
 import { NotesBody } from "./notes-body"
 import { NotesHeader } from "./notes-header"
 import { NotesToolBar } from "./notes-toolbar"
-import { NoteType, notesAtom } from "./providers/notesAtom"
+import { NoteProps, notesAtom } from "./providers/notesAtom"
 import {
   propertiesOfTagsAtom,
   propertiesOfTagsType,
@@ -16,12 +15,12 @@ import { TagsProps, tagsAtom } from "./providers/tagsAtom"
 import { TagsTypeProps, typeOfTagsAtom } from "./providers/typeOfTagsAtom"
 
 interface NotesProps {
-  notes?: NoteType[]
+  notes?: NoteProps[]
   properties?: propertiesOfTagsType
   tags?: TagsProps
   tagsType?: TagsTypeProps
   onChange?: (
-    notes: NoteType[],
+    notes: NoteProps[],
     properties: propertiesOfTagsType,
     tags: TagsProps,
     tagsType: propertiesOfTagsType
@@ -72,7 +71,6 @@ export function Notes({
       />
       <NotesHeader />
       <NotesBody filterValue={filterValue} />
-      <Editor />
     </>
   )
 }

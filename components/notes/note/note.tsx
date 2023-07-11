@@ -15,7 +15,7 @@ interface TagsType {
   [key: string]: any | Checked[]
 }
 
-interface NoteType {
+interface NoteProps {
   id: number | string
   title: string
   tags: TagsType
@@ -27,7 +27,7 @@ export function Note({
   note,
   onDelete,
 }: {
-  note: NoteType
+  note: NoteProps
   onDelete: () => void
 }) {
   const [notes, setNotes] = useAtom(notesAtom)
