@@ -105,12 +105,7 @@ export function CustomMultiSelect({
                     return (
                       <div
                         key={property + p}
-                        className="mx-0.5 flex w-max items-center rounded-md bg-gray-100 p-1 text-xs"
-                        onClick={(e) => {
-                          alert("Delete")
-                          e.stopPropagation()
-                          handleSelectCheck(index)
-                        }}
+                        className="mx-0.5 flex w-max items-center rounded-md bg-gray-100 p-1 text-xs dark:bg-gray-900"
                       >
                         {p}
                         <X className="ml-1 h-3 w-3 text-gray-700" />
