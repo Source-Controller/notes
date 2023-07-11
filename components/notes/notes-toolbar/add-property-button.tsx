@@ -1,8 +1,8 @@
 import { useAtom } from "jotai"
 import { ChevronDown, Plus, Trash } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
-import { DialogTrigger } from "@/components/ui/dialog"
+import { Button } from "../components/ui/button"
+import { DialogTrigger } from "../components/ui/dialog"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -10,8 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-
+} from "../components/ui/dropdown-menu"
 import {
   filtersAtom,
   notesAtom,

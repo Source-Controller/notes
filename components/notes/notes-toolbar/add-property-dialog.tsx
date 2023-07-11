@@ -5,18 +5,18 @@ import { useAtom } from "jotai"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
-import { Button } from "@/components/ui/button"
+import { Button } from "../components/ui/button"
 import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
+} from "../components/ui/dialog"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "../components/ui/dropdown-menu"
 import {
   Form,
   FormControl,
@@ -24,10 +24,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Separator } from "@/components/ui/separator"
-
+} from "../components/ui/form"
+import { Input } from "../components/ui/input"
+import { Separator } from "../components/ui/separator"
 import {
   notesAtom,
   propertiesOfTagsAtom,

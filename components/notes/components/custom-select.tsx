@@ -3,17 +3,6 @@ import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu"
 import { useAtom, useAtomValue } from "jotai"
 import { ChevronDown, Trash } from "lucide-react"
 
-import { Dialog, DialogTrigger } from "@/components/ui/dialog"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-
 import {
   filtersAtom,
   noteIdAtom,
@@ -22,6 +11,16 @@ import {
   tagsAtom,
 } from "../providers"
 import { AddOption } from "./add-option"
+import { Dialog, DialogTrigger } from "./ui/dialog"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu"
 
 type Checked = DropdownMenuCheckboxItemProps["checked"]
 

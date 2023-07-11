@@ -1,8 +1,7 @@
 import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu"
 import { useAtom } from "jotai"
 
-import { Button } from "@/components/ui/button"
-
+import { Button } from "./components/ui/button"
 import {
   noteIdAtom,
   notesAtom,

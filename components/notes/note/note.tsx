@@ -5,8 +5,7 @@ import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu"
 import { useAtom } from "jotai"
 import { Trash } from "lucide-react"
 
-import { Input } from "@/components/ui/input"
-
+import { Input } from "../components/ui/input"
 import { notesAtom } from "../providers"
 import { NoteTags } from "./note-tags"
 

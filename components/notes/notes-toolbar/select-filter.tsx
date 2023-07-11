@@ -4,8 +4,9 @@ import { CheckIcon, PlusCircledIcon } from "@radix-ui/react-icons"
 import { useAtom } from "jotai"
 
 import { cn } from "@/lib/utils"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+
+import { Badge } from "../components/ui/badge"
+import { Button } from "../components/ui/button"
 import {
   Command,
   CommandEmpty,
@@ -14,14 +15,13 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@/components/ui/command"
+} from "../components/ui/command"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
-import { Separator } from "@/components/ui/separator"
-
+} from "../components/ui/popover"
+import { Separator } from "../components/ui/separator"
 import { filtersAtom, tagsAtom } from "../providers"
 
 type Checked = DropdownMenuCheckboxItemProps["checked"]

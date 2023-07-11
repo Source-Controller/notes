@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react"
 import { useAtom, useAtomValue, useSetAtom } from "jotai"
 
-import { Input } from "@/components/ui/input"
-
 import {
   noteIdAtom,
   notesAtom,
   propertiesOfTagsAtom,
   tagsAtom,
 } from "../providers"
+import { Input } from "./ui/input"
 
 export function CustomInput({
   property,

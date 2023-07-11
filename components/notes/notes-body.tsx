@@ -18,10 +18,8 @@ import {
 } from "@dnd-kit/sortable"
 import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu"
 import { useAtom, useAtomValue, useSetAtom } from "jotai"
-import { boolean } from "zod"
 
-import { Dialog, DialogContent } from "@/components/ui/dialog"
-
+import { Dialog, DialogContent } from "./components/ui/dialog"
 import { Note } from "./note"
 import { NoteCreateNew } from "./note-create-new"
 import { NoteDialog } from "./note-editor-dialog"

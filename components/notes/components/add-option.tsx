@@ -3,12 +3,9 @@ import { useAtom } from "jotai"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
-import { Button } from "@/components/ui/button"
-import {
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
+import { notesAtom, propertiesOfTagsAtom, typeOfTagsAtom } from "../providers"
+import { Button } from "./ui/button"
+import { DialogContent, DialogHeader, DialogTitle } from "./ui/dialog"
 import {
   Form,
   FormControl,
@@ -16,11 +13,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Separator } from "@/components/ui/separator"
-
-import { notesAtom, propertiesOfTagsAtom, typeOfTagsAtom } from "../providers"
+} from "./ui/form"
+import { Input } from "./ui/input"
+import { Separator } from "./ui/separator"
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Please input the name of property" }),

@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
 import { useAtom } from "jotai"
 
-import { Input } from "@/components/ui/input"
-
+import { Input } from "../components/ui/input"
 import { filtersAtom, tagsAtom } from "../providers"
 
 export function InputFilter({
