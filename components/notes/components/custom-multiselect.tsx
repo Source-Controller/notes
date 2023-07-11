@@ -24,9 +24,13 @@ import { AddOption } from "./add-option"
 
 type Checked = DropdownMenuCheckboxItemProps["checked"]
 
-export function CustomMultiSelect(props: any) {
-  // Property Name ( like algorithms and level, etc... )
-  const { property, index } = props
+export function CustomMultiSelect({
+  property,
+  index,
+}: {
+  property: string
+  index: number
+}) {
   const tags = useAtomValue(tagsAtom)
   const tag = tags.names[index]
 

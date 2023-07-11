@@ -10,9 +10,13 @@ import {
   tagsAtom,
 } from "../providers"
 
-export function CustomInput(props: any) {
-  // Property Name ( like algorithms and level, etc... )
-  const { property, index } = props
+export function CustomInput({
+  property,
+  index,
+}: {
+  property: string
+  index: number
+}) {
   const tags = useAtomValue(tagsAtom)
   const tag = tags.names[index]
 

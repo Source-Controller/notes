@@ -3,7 +3,7 @@ import { useAtomValue, useSetAtom } from "jotai"
 
 import { noteIdAtom, notesAtom } from "../providers"
 
-export function InlineInput(props: any) {
+export function InlineInput() {
   const [inputRef, setInputRef] = useState<HTMLHeadingElement | null>(null)
 
   const noteId = useAtomValue(noteIdAtom)

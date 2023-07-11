@@ -3,14 +3,17 @@ import { useState } from "react"
 import { Dialog } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 
-import { AddFilter } from "./add-filter"
 import { AddPropertyButton } from "./add-property-button"
 import { AddPropertyDialog } from "./add-property-dialog"
 import { PropertyFilters } from "./property-filters"
 
-export function NotesToolBar(props: any) {
-  const { filterValue, setFilterValue } = props
-
+export function NotesToolBar({
+  filterValue,
+  setFilterValue,
+}: {
+  filterValue: string
+  setFilterValue: (val: string) => void
+}) {
   const [dialog, setDialog] = useState(false)
 
   return (

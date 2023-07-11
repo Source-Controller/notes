@@ -8,9 +8,15 @@ import { NotesToolBar } from "./notes-toolbar"
 
 export function Notes() {
   const [filterValue, setFilterValue] = useState<string>("")
+  const handleFilterValue = (val: string) => {
+    setFilterValue(val)
+  }
   return (
     <>
-      <NotesToolBar filterValue={filterValue} setFilterValue={setFilterValue} />
+      <NotesToolBar
+        filterValue={filterValue}
+        setFilterValue={handleFilterValue}
+      />
       <NotesHeader />
       <NotesBody filterValue={filterValue} />
     </>
