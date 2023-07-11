@@ -8,7 +8,7 @@ interface TagsType {
 }
 
 interface NoteType {
-  id: number;
+  id: number | string;
   title: string;
   tags: TagsType;
   view: string;
@@ -17,7 +17,7 @@ interface NoteType {
 
 const notesAtom = atom<NoteType[]>([
   {
-    id: 1, 
+    id: 'c6d86565-8b7f-4aac-b9f4-845bde4fb7d4', 
     title: "Two Sum",
     tags: {
       algorithms: [
@@ -29,7 +29,7 @@ const notesAtom = atom<NoteType[]>([
     dateCreatedAt: '', 
   }, 
   {
-    id: 2,
+    id: 'b91151af-3173-4fde-a1d2-8aa27084525d',
     title: "Coin Change",
     tags: {
       algorithms: [
@@ -41,7 +41,7 @@ const notesAtom = atom<NoteType[]>([
     dateCreatedAt: '', 
   }, 
   {
-    id: 3,
+    id: 'e085b4fe-b099-40df-8224-a895beb88af6',
     title: "Partition Equal Subset Sum",
     tags: {
       algorithms: [
@@ -53,7 +53,7 @@ const notesAtom = atom<NoteType[]>([
     dateCreatedAt: '', 
   }, 
   {
-    id: 4,
+    id: '49ca41a7-3d54-40a8-86fc-28367e611df9',
     title: "Longest Substring Without Repeating Characters",
     tags: {
       algorithms: [

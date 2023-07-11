@@ -77,26 +77,29 @@ export function CustomSelect(props: any) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [select])
 
-  const onDelete = (e: any, index: number) => {
+  const onDelete = (e: any, propertyIndex: number) => {
     e.stopPropagation()
     setNotes((prevNotes) => {
       const updatedNotes = [...prevNotes]
+
       for (let i = 0; i < updatedNotes.length; i++) {
-        if (updatedNotes[i].tags[property] === properties[property][index]) {
+        if (
+          updatedNotes[i].tags[property] === properties[property][propertyIndex]
+        ) {
           updatedNotes[i].tags[property] = ""
         }
       }
-      setSelect(updatedNotes[index].tags[property])
+      setSelect(updatedNotes[noteId as number].tags[property])
       return updatedNotes
     })
     setProperties((prevProperties) => {
       const updatedProperties = { ...prevProperties }
-      ;(updatedProperties[property] as string[]).splice(index, 1)
+      ;(updatedProperties[property] as string[]).splice(propertyIndex, 1)
       return updatedProperties
     })
     setFilters((prevFilters) => {
       const updatedFilters = { ...prevFilters }
-      ;(updatedFilters[property] as Checked[]).splice(index, 1)
+      ;(updatedFilters[property] as Checked[]).splice(propertyIndex, 1)
       return updatedFilters
     })
   }
@@ -116,7 +119,7 @@ export function CustomSelect(props: any) {
             <DropdownMenuRadioGroup value={select} onValueChange={setSelect}>
               {Array.isArray(properties[property]) ? (
                 (properties[property] as string[]).map(
-                  (p: string, index: number) => {
+                  (p: string, propertyIndex: number) => {
                     return (
                       <DropdownMenuRadioItem
                         key={p}
@@ -126,7 +129,7 @@ export function CustomSelect(props: any) {
                         {p}
 
                         <Trash
-                          onClick={(e) => onDelete(e, index)}
+                          onClick={(e) => onDelete(e, propertyIndex)}
                           className="h-4 w-4 text-[#0f172A]"
                         />
                       </DropdownMenuRadioItem>

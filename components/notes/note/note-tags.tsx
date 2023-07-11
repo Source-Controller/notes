@@ -10,7 +10,7 @@ interface TagsType {
 }
 
 interface NoteType {
-  id: number
+  id: number | string
   title: string
   tags: TagsType
   view: string

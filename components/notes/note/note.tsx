@@ -17,14 +17,20 @@ interface TagsType {
 }
 
 interface NoteType {
-  id: number
+  id: number | string
   title: string
   tags: TagsType
   view: string
   dateCreatedAt: string
 }
 
-export function Note({ note }: { note: NoteType }) {
+export function Note({
+  note,
+  onDelete,
+}: {
+  note: NoteType
+  onDelete: () => void
+}) {
   const [notes, setNotes] = useAtom(notesAtom)
   const [dateCreatedAt, setDateCreatedAt] = useState<string>(note.dateCreatedAt)
   const { attributes, listeners, setNodeRef, transform, transition } =
@@ -35,10 +41,9 @@ export function Note({ note }: { note: NoteType }) {
     transition,
   }
 
-  const onDelete = (event: any) => {
+  const handleDelete = (event: any) => {
     event.stopPropagation()
-    alert("del")
-    // invoke onDelete func
+    onDelete()
   }
 
   const dateChange = (e: any) => {
@@ -60,24 +65,23 @@ export function Note({ note }: { note: NoteType }) {
   }
 
   return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      {...attributes}
-      {...listeners}
-      aria-describedby=""
-    >
-      <div className="relative flex min-h-[39px] select-none flex-wrap items-center gap-4 break-all border-b border-gray-300 py-2 pl-4 pr-8">
-        <div className="mr-auto text-sm">{note.title}</div>
+    <div ref={setNodeRef} style={style} {...attributes} aria-describedby="">
+      <div className="relative min-h-[39px] select-none border-b border-gray-300">
+        <div
+          className="flex flex-wrap items-center gap-4 break-all py-2 pl-4 pr-8"
+          {...listeners}
+        >
+          <div className="mr-auto text-sm">{note.title}</div>
 
-        <NoteTags note={note} />
+          <NoteTags note={note} />
 
-        <div className="px-5 text-sm">
-          <Input type="date" value={dateCreatedAt} onChange={dateChange} />
+          <div className="px-5 text-sm">
+            <Input type="date" value={dateCreatedAt} onChange={dateChange} />
+          </div>
         </div>
         <Trash
           className="absolute right-2 top-[20px] h-4 w-4 cursor-pointer select-none"
-          onClick={onDelete}
+          onClick={(e) => handleDelete(e)}
         />
       </div>
     </div>

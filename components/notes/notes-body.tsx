@@ -39,7 +39,7 @@ interface TagsType {
 }
 
 interface NoteType {
-  id: number
+  id: number | string
   title: string
   tags: TagsType
   view: string
@@ -126,6 +126,14 @@ export function NotesBody({ filterValue }: { filterValue: string }) {
 
   const filteredNotes = titleFilteredNotes.filter(isFiltered)
 
+  const onDelete = (index: number) => {
+    setNotes((prevNotes) => {
+      const updatedNotes = [...prevNotes]
+      updatedNotes.splice(index, 1)
+      return updatedNotes
+    })
+  }
+
   return (
     <Dialog open={isOpen} onOpenChange={handleOpen}>
       <DndContext
@@ -134,8 +142,14 @@ export function NotesBody({ filterValue }: { filterValue: string }) {
         onDragEnd={handleDragEnd}
       >
         <SortableContext items={notes} strategy={verticalListSortingStrategy}>
-          {filteredNotes.map((note) => {
-            return <Note key={note.id} note={note} />
+          {filteredNotes.map((note, index) => {
+            return (
+              <Note
+                key={note.id}
+                note={note}
+                onDelete={() => onDelete(index)}
+              />
+            )
           })}
         </SortableContext>
       </DndContext>

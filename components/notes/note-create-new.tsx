@@ -12,6 +12,8 @@ import {
 
 type Checked = DropdownMenuCheckboxItemProps["checked"]
 
+const { v4: uuidv4 } = require("uuid")
+
 export function NoteCreateNew({
   changeOpen,
 }: {
@@ -34,10 +36,11 @@ export function NoteCreateNew({
           tempTag = { ...tempTag, [key]: arr }
         }
       })
+      const randomId = uuidv4()
       const updatedNotes = [
         ...prevNotes,
         {
-          id: prevNotes[prevNotes.length - 1].id + 1,
+          id: randomId,
           title: "New Note",
           tags: tempTag,
           view: "",
