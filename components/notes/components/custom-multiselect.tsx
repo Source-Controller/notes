@@ -104,10 +104,10 @@ export function CustomMultiSelect({
                     return (
                       <div
                         key={property + p}
-                        className="mx-0.5 flex w-max items-center rounded-md bg-gray-100 p-1 text-xs dark:bg-gray-900"
+                        className="mx-0.5 flex w-max items-center rounded-md bg-stone-100 p-1 text-xs dark:bg-slate-900"
                       >
                         {p}
-                        <X className="ml-1 h-3 w-3 text-gray-700" />
+                        {/* <X className="ml-1 h-3 w-3 text-gray-700" /> */}
                       </div>
                     )
                   }
