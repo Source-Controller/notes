@@ -123,7 +123,7 @@ const DEFAULT_EDITOR_CONTENT: NovelProps = {
             {
               type: "paragraph",
               content: [
-                { type: "text", text: "Star us on " },
+                { type: "text", text: "Star me on " },
                 {
                   type: "text",
                   marks: [
